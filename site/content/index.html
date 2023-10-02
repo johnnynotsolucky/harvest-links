@@ -3,9 +3,9 @@
 {% extends "_layout/layout.html" %}
 {% block page %}
 <div class="page-width" style="display: grid;">
-  <div id="reports">
+  <ul id="reports">
 
-  </div>
+  </ul>
 </div>
 <script type="application/javascript">
   const SPRINT_START_DAY = 4; // Thursday
@@ -67,11 +67,13 @@
 
   const reportEl = document.getElementById('reports');
   for (const report of reports) {
+    const li = document.createElement('li');
     const anchor = document.createElement('a');
     anchor.textContent = report[0];
     anchor.href = report[1];
     anchor.target = '_blank';
-    reportEl.appendChild(anchor);
+    li.appendChild(anchor);
+    reportEl.appendChild(li);
   }
 </script>
 {% endblock page %}

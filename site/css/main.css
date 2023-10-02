@@ -1,17 +1,5 @@
 @import "_common.css";
 
-html {
-  & a {
-    color: var(--text-color);
-    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
 nav {
   padding: 16px 0.5rem 16px 0.5rem;
   justify-content: center;
@@ -59,8 +47,6 @@ nav {
 
 @media screen and (min-width: 60em) {
   nav {
-    justify-content: flex-start;
-
     & div.brand {
       text-align: left;
     }
@@ -80,33 +66,22 @@ nav {
 }
 
 a {
+  color: var(--text-color);
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+  text-decoration: underline;
+  text-decoration-color: var(--text-color);
+  text-decoration-thickness: .25rem;
+
   &:focus-visible {
     text-decoration: none !important;
     border-radius: 0.25rem;
-    outline: 0.25rem solid var(--content-highlight-color);
+    outline: 0.25rem solid var(--primary-color);
   }
-}
 
-section {
-  padding: 30px 0 60px 0;
-
-  & header {
-    padding: 30px 0 60px 0;
-    display: inline-block;
-    width: 100%;
-
-    & h2 {
-      font-size: 2em;
-      font-family: var(--header-font);
-      font-weight: 600;
-      margin: 0;
-      padding: 0;
-      letter-spacing: -1px;
-      text-decoration: underline;
-      text-decoration-thickness: 0.5rem;
-      text-decoration-color: var(--content-highlight-color);
-      word-break: break-word;
-    }
+  &:hover {
+    color: var(--primary-color);
+    text-decoration-color: var(--primary-color);
+    text-decoration-thickness: .35rem;
   }
 }
 
@@ -133,7 +108,7 @@ section .container {
 
 ul, ol {
   list-style-position: outside;
-  padding-left: 1.2em;
+  padding-left: 1.2rem;
 }
 
 footer {
@@ -149,6 +124,7 @@ footer {
   & a {
     color: var(--dark-primary-color);
     text-decoration: none;
+
 
     &:hover {
       text-decoration: underline;
@@ -183,6 +159,8 @@ header h1 {
 }
 
 #reports {
-  display: flex;
-  flex-direction: column;
+  & li {
+    text-align: center;
+    list-style: none;
+  }
 }

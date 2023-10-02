@@ -10,10 +10,10 @@
   --dark-content-background-color: #2a3439;
   --dark-alt-background-color: #2b3445;
 
-  --light-primary-color: #f53190;
-  --light-text-color: #2a3439;
+  --light-primary-color: #002333;
+  --light-text-color: #00405E;
   --light-inline-code-color: #ff60ad;
-  --light-background-color: white;
+  --light-background-color: #B4BEC9;
   --light-content-highlight-color: var(--dark-primary-color);
   --light-content-background-color: white;
   --light-alt-background-color: #e3e3e3;
