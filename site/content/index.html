@@ -1,0 +1,77 @@
++++
++++
+{% extends "_layout/layout.html" %}
+{% block page %}
+<div class="page-width" style="display: grid;">
+  <div id="reports">
+
+  </div>
+</div>
+<script type="application/javascript">
+  const SPRINT_START_DAY = 4; // Thursday
+
+  const formatDate = (date) => {
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  const getFormattedSprintDates = () => {
+    const currentDate = new Date();
+    const currentDay = currentDate.getDay();
+    const startDate = new Date();
+    startDate.setDate(currentDate.getDate() - 7 + (SPRINT_START_DAY - currentDay));
+
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 6);
+
+    return [formatDate(startDate), formatDate(endDate)]
+  }
+
+  const getFormattedSemimonth = () => {
+    // Remember: Months start at 0 in js, days start at 1 LOL
+    const now = new Date();
+    const currentDate = now.getDate();
+    if (currentDate > 15) {
+      return [
+        formatDate(new Date(now.getFullYear(), now.getMonth(), 16)),
+        formatDate(new Date(now.getFullYear(), now.getMonth(), 0)),
+      ];
+    } else {
+      return [
+        formatDate(new Date(now.getFullYear(), now.getMonth(), 1)),
+        formatDate(new Date(now.getFullYear(), now.getMonth(), 15)),
+      ]
+    }
+  }
+
+
+  const [sprintStart, sprintEnd] = getFormattedSprintDates();
+  const [monthStart, monthEnd] = getFormattedSemimonth();
+
+  const reports = [
+    [
+      'Daily Dev:POA',
+      `https://fostercommerce.harvestapp.com/reports/detailed?group=dates&tasks%5B%5D=13422519&tasks%5B%5D=13422198&tasks%5B%5D=14157120&start_date=${sprintStart}&end_date=${sprintEnd}`
+    ],
+    [
+      'Daily Dev:Flex',
+      `https://fostercommerce.harvestapp.com/reports/detailed?group=dates&tasks%5B%5D=18483446&start_date=${sprintStart}&end_date=${sprintEnd}`
+    ],
+    [
+      'Semimonth',
+      `https://fostercommerce.harvestapp.com/reports?kind=semimonth&tab=tasks&from=${monthStart}&till=${monthEnd}`
+    ],
+  ]
+
+  const reportEl = document.getElementById('reports');
+  for (const report of reports) {
+    const anchor = document.createElement('a');
+    anchor.textContent = report[0];
+    anchor.href = report[1];
+    anchor.target = '_blank';
+    reportEl.appendChild(anchor);
+  }
+</script>
+{% endblock page %}

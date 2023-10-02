@@ -1,0 +1,37 @@
+name: Deploy Site
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    name: Update site content
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{secrets.WEBSERVER_PRIVATE_KEY}}
+
+      - name: Copy to remote
+        run: |
+          rsync -az \
+            --copy-links \
+            --stats \
+            --delete \
+            --exclude 'output' \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            . \
+            ${{secrets.DEPLOY_USER}}@${{secrets.WEBSERVER_HOST}}:/home/sluggy/src
+
+      # temp until whatever is wrong with the watcher is resolved
+      - name: docker compose restart
+        run: |
+          ssh \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            ${{secrets.DEPLOY_USER}}@${{secrets.WEBSERVER_HOST}} \
+            'cd /home/sluggy/src && docker compose --env-file /home/sluggy/.env restart'

@@ -1,0 +1,46 @@
+{% set title = site.title -%}
+{% set meta_title = site.title -%}
+
+{% if entry_path -%}
+  {% set entry = entry_path | entry -%}
+{% endif -%}
+
+{% if entry -%}
+  {% if entry.section_handle -%}
+    {% set section = sections(handle = entry.section_handle) -%}
+    {% if section -%}
+      {% set title = title ~ " | " ~ section.title -%}
+      {% set meta_title = section.title -%}
+    {% endif -%}
+  {% endif -%}
+  {% if entry.title -%}
+    {% set title = title ~ " | " ~ entry.title -%}
+    {% set meta_title = entry.title -%}
+  {% endif -%}
+  {% if entry.description -%}
+    {% set meta_description = entry.description -%}
+  {% elif section.description -%}
+    {% set meta_description = section.description -%}
+  {% elif site.description -%}
+    {% set meta_description = site.description -%}
+  {% endif -%}
+{% endif -%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    {% block title -%}
+    <title>{{ title }}</title>
+    {% endblock title -%}
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    {% include "_layout/headers.html" -%}
+    {% block headers -%}{% endblock headers -%}
+  </head>
+  <body>
+    {% include "_layout/nav.html" %}
+    <div style="flex: 1;">
+      {% block page %}{% endblock page -%}
+    </div>
+    {% include "_layout/footer.html" -%}
+  </body>
+</html>

@@ -1,0 +1,22 @@
+out_dir = "output" # Default
+
+[generate]
+content_dir = "site/content"
+css_dir = "site/css"
+template_dir = "site/templates"
+assets_dir = "site/assets"
+data_dir = "site/data"
+minify = false
+
+title = "Harvest Links"
+description = "Links to Harvest reports"
+maintained_by = "Tyrone Tudehope"
+
+taxonomies = ["tags"]
+
+[serve]
+generate = true
+watch = true
+host = "0.0.0.0"
+port = 8000
+store = "in-memory"

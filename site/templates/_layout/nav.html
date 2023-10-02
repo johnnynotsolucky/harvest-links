@@ -1,0 +1,83 @@
+<nav class="page-width">
+  <div class="brand">
+    {#
+    <button id="mode" aria-label="Toggle mode">
+      <svg class="mode mode-light" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+      <svg class="mode mode-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+      <svg class="mode mode-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M12 8a2.828 2.828 0 1 0 4 4"></path><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+    </button>
+    <script type="text/javascript">
+      // auto -> dark -> light
+      function setModeIcon(icon) {
+        document.querySelectorAll("svg.mode").forEach((e) => {
+          e.style.display = "none";
+        });
+        document.querySelector(`svg.mode-${icon}`).style.display = "inline-block";
+      }
+
+      if (localStorage) {
+        let html = document.getElementsByTagName("html")[0];
+
+        let siteMode = localStorage.getItem("color-scheme");
+
+        if (siteMode === "light") {
+          html.classList.add("light");
+          setModeIcon("light");
+        } else if (siteMode === null) {
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            html.classList.add("light");
+          }
+          setModeIcon("auto");
+        } else {
+          setModeIcon("dark");
+        }
+
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', event => {
+          let siteMode = localStorage.getItem("color-scheme");
+          if (siteMode == null) {
+            if (event.matches) {
+              html.classList.add("light");
+            } else {
+              html.classList.remove("light");
+            }
+          }
+        });
+
+        let button = document.getElementById("mode");
+        button.addEventListener("click", (event) => {
+          let siteMode = localStorage.getItem("color-scheme");
+          if (siteMode === "dark") {
+            // was dark, make light
+            html.classList.add("light");
+            localStorage.setItem("color-scheme", "light");
+            setModeIcon("light");
+          } else if (siteMode === "light") {
+            // was light, make auto
+            html.classList.remove("light");
+            localStorage.removeItem("color-scheme");
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+              html.classList.add("light");
+            } else {
+              html.classList.remove("light");
+            }
+            setModeIcon("auto");
+          } else {
+            html.classList.remove("light");
+            localStorage.setItem("color-scheme", "dark");
+            // was auto, make dark
+            setModeIcon("dark");
+          }
+        })
+      } else {
+        document.getElementById("mode").remove();
+      }
+
+    </script>
+    #}
+    <a aria-label="Harvest Links" href="{{base}}">
+      Harvest Links
+    </a>
+  </div>
+</nav>
+
+

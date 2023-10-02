@@ -1,0 +1,7 @@
+**/*.rs.bk
+static/styles/vendor.css
+static/styles/app.css
+static/styles/fonts.css
+result
+.env
+output
