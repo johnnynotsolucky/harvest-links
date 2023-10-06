@@ -19,12 +19,15 @@
 
   const getFormattedSprintDates = () => {
     const currentDate = new Date();
-    const currentDay = currentDate.getDay();
-    const startDate = new Date();
-    startDate.setDate(currentDate.getDate() - 7 + (SPRINT_START_DAY - currentDay));
+    let dayOfWeek = currentDate.getDay();
 
+    let daysToSprintStart = (dayOfWeek + (7 - SPRINT_START_DAY)) % 7;
+    const startDate = new Date();
+    startDate.setDate(currentDate.getDate() - daysToSprintStart);
+
+    daysToSprintStart = ((SPRINT_START_DAY - 1) - dayOfWeek + 7) % 7;
     const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + 6);
+    endDate.setDate(currentDate.getDate() + daysToSprintStart);
 
     return [formatDate(startDate), formatDate(endDate)]
   }
