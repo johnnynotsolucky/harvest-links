@@ -26,8 +26,13 @@
     startDate.setDate(currentDate.getDate() - daysToSprintStart);
 
     daysToSprintStart = ((SPRINT_START_DAY - 1) - dayOfWeek + 7) % 7;
+    console.log(daysToSprintStart)
     const endDate = new Date(startDate);
     endDate.setDate(currentDate.getDate() + daysToSprintStart);
+
+    if (endDate < startDate) {
+      endDate.setMonth(endDate.getMonth() + 1);
+    }
 
     return [formatDate(startDate), formatDate(endDate)]
   }
