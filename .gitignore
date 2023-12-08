@@ -5,3 +5,4 @@ static/styles/fonts.css
 result
 .env
 output
+node_modules

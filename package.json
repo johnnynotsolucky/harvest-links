@@ -1,0 +1,17 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Tailwind setup",
+  "main": "index.js",
+  "author": "Tyrone Tudehope <tyronetudehope@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss --input style/tailwind.css --config tailwind.config.js --output site/css/tailwind.css",
+    "watch": "tailwindcss --input style/tailwind.css --config tailwind.config.js --output site/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.3.5"
+  }
+}

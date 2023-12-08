@@ -36,11 +36,13 @@
     {% include "_layout/headers.html" -%}
     {% block headers -%}{% endblock headers -%}
   </head>
-  <body>
-    {% include "_layout/nav.html" %}
-    <div style="flex: 1;">
-      {% block page %}{% endblock page -%}
+  <body class="h-screen font-serif">
+    <div class="h-screen flex flex-col">
+      {% include "_layout/nav.html" %}
+      <div class="flex-1 flex self-center place-items-center">
+        {% block page %}{% endblock page -%}
+      </div>
+      {% include "_layout/footer.html" -%}
     </div>
-    {% include "_layout/footer.html" -%}
   </body>
 </html>

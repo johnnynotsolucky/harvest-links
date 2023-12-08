@@ -19,7 +19,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: docker compose pull
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+
+      - run: yarn install --frozen-lockfile
+
+      - name: compile tailwindcss
+        run: yarn build
+
+      - name: generate
         run: |
           docker run \
             -v ${PWD}/sluggy.toml:/usr/src/sluggy/sluggy.toml \
@@ -29,9 +38,16 @@ jobs:
             sluggy \
             --config /usr/src/sluggy/sluggy.toml \
             generate
+
+      - name: copy 404
+        run: |
+          cp output/_error/404/index.html output/404.html
+
       - uses: actions/configure-pages@v3
+
       - uses: actions/upload-pages-artifact@v2
         with:
           path: './output'
+
       - id: deployment
         uses: actions/deploy-pages@v2

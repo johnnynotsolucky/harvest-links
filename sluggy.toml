@@ -6,7 +6,7 @@ css_dir = "site/css"
 template_dir = "site/templates"
 assets_dir = "site/assets"
 data_dir = "site/data"
-minify = false
+minify = true
 
 title = "Harvest Shortcuts"
 description = "Shortcuts to Harvest reports"
