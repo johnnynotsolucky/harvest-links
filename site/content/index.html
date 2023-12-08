@@ -3,7 +3,7 @@
 {% extends "_layout/layout.html" %}
 {% block page %}
 <div class="text-2xl">
-  <ul id="reports">
+  <ul id="reports" class="flex flex-col gap-2">
   </ul>
 </div>
 <script type="application/javascript">
@@ -83,11 +83,12 @@
   const reportEl = document.getElementById('reports');
   for (const report of reports) {
     const li = document.createElement('li');
+    li.className = "flex";
     const anchor = document.createElement('a');
     anchor.textContent = report[0];
     anchor.href = report[1];
     anchor.target = '_blank';
-    anchor.className = "hover:underline hover:underline-offset-4"
+    anchor.className = "p-2 hover:underline hover:underline-offset-4"
     li.appendChild(anchor);
     reportEl.appendChild(li);
   }
